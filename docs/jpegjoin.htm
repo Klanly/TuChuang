@@ -19,6 +19,9 @@ var kycmd=function(e) {
 var ekeyCode=e.keyCode;
 switch(ekeyCode)
 {
+	case 90:
+		zundo();
+		return;
 	case 13:
 		finalcalc();
 		return;
@@ -69,6 +72,7 @@ function apok()
 			var ele=ldn[i];
 			ele.style.top=mvt;
 			ele.ofy=mvt;
+			ele.ofy_lzt=mvt;
 			ele.style.left=0;
 			mvt+=ele.naturalHeight&0xfffffff0;
 		}
@@ -78,7 +82,14 @@ function apok()
 	}
 }
 
-
+function zundo()
+{
+	curctrl.ofx=curctrl.ofx_lzt;
+	curctrl.style.left=curctrl.ofx;
+	curctrl.ofy=curctrl.ofy_lzt;
+	curctrl.style.top=curctrl.ofy;
+	return;
+}
 
 function drggend(ev)
 {
@@ -89,8 +100,10 @@ function drggend(ev)
 	var ofx=(ev.clientX-rect.x)&0xfffffff0;
 	var ofy=(rect.y)&0xfffffff0;
 	curctrl=this;
+	this.ofx_lzt=this.ofx;
 	this.ofx+=ofx;
 	this.style.left=this.ofx;
+	this.ofy_lzt=this.ofy;
 	this.ofy-=ofy;
 	this.style.top=this.ofy;
 }
@@ -105,6 +118,8 @@ bsimg.onclick=drgclk;
 bsimg.ondragend=drggend;
 bsimg.ofx=0;
 bsimg.ofy=0;
+bsimg.ofx_lzt=0;
+bsimg.ofy_lzt=0;
 wk.appendChild(bsimg);
 return bsimg;
 }
@@ -176,8 +191,8 @@ function finalcalc()
 	for(var i=0;i<cot;i++){yfo[i]=[ldn[i].ofx-vlft,ldn[i].ofy-vtop];}
 	var txtout=['jpegtran.exe -crop '+vrgt+'x'+vbot+'+'+yfo[0][0]+'+'+yfo[0][1]+' -outfile tmp.jpg "'+origna[0]+'"'];
 	for(var i=1;i<cot;i++){
-		if(!origna[i].endsWith('.png'))
-		{
+		if(origna[i].endsWith('.png')) {txtout.push('--PNG--\npause');}
+		else {
 			txtout.push('jpegtran2.exe -drop +'+yfo[i][0]+'+'+yfo[i][1]+' "'+origna[i]+'" -outfile tmp0.jpg tmp.jpg');
 			txtout.push('del tmp.jpg');
 			txtout.push('ren tmp0.jpg tmp.jpg');
