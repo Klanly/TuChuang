@@ -755,7 +755,10 @@ oka=['rootmap','sbwy4_4','sinbil_1','eleout','blin60_2','blin61','blin62_1','bli
 'cosmo','cos_top','bugin2','gidun_2','gidun_4','jtempl','whitein','ancnt1','ancnt2','ancnt3','ancnt4',
 'snw_w','sninn_1','sninn_b1','hyou5_4','hyou10','gaiin_1','gaiin_2','gaiin_3','gaiin_5','gaiin_7']
 
-nalz=[kitase,tori,keisuke,hiroki,nojima,	aki,yosioka,kyonen,toki,kato,	oka]
+nalz=[[kitase,'北瀬 佳範\nYOSHINORI KITASE'],[tori,'鳥山 モトム\nMOTOMU TORIYAMA'],[keisuke,'松原 啓介\nKEISUKE MATSUHARA'],[hiroki,'千葉 広樹\nHIROKI CHIBA'],
+[nojima,'野島 一成\nKAZUSHIGE NOJIMA'],[aki,'秋山 淳\nJUN AKIYAMA'],[yosioka,'吉岡 加寿彦\nKAZUHIKO YOSHIOKA'],[kyonen,'京念 秀史\nHIDESHI KYONEN'],
+[toki,'時田 貴司\nTAKASHI TOKITA'],[kato,'加藤 正人\nMASATO KATO'],
+[oka,'MAP PLANNERs']]
 imgurl='https://raw.githubusercontent.com/picklejar76/kujata-data/master/metadata/makou-reactor/backgrounds/';
 imgext='.png';
 
@@ -823,7 +826,11 @@ function lz(vv)
 	
 }
 
-function pn(v) {pnn(nalz[v-1]);}
+function pn(v) {
+var chuz=nalz[v-1];
+console.log(chuz[1]);
+pnn(chuz[0]);
+}
 
 /*
 
